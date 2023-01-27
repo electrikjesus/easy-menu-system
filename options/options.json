@@ -1,0 +1,51 @@
+{
+    "project": "easy menu system",
+    "version": 0.1,
+    "updated": "2023-01-26T00:00:00.000Z",
+    "debug": true,
+    "options": {
+      "menuEntry": [
+        {
+          "name": "thisName",
+          "command": "bash this_script.sh",
+          "dependencies": [
+            {
+              "dep1": "/usr/lib/share/thisfolder",
+              "dep2": "/usr/lib/share/thatfolder"
+            }
+          ]
+        },
+        {
+          "name": "thatName",
+          "command": "bash that_script.sh",
+          "dependencies": [
+            {
+              "dep1": "/usr/lib/share/thisfolder",
+              "dep2": "/usr/lib/share/thatfolder"
+            }
+          ]
+        },
+        {
+          "name": "otherName",
+          "command": "",
+          "dependencies": [
+            {
+              "dep1": "/usr/lib/share/thisfolder"
+            }
+          ],
+          "subMenuEntry": [
+            {
+              "name": "thisSubName",
+              "command": "bash this_other_subscript.sh",
+              "dependencies": [
+                {
+                  "dep1": "/usr/lib/share/thisfolder",
+                  "dep2": "/usr/lib/share/thatfolder"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
