@@ -1,8 +1,7 @@
-#!/bin/sh
-# set -e
+#!/bin/bash
+set -e
 
 # Start heading
-
 EASYLEGACY="false"
 OCONFIG=""
 
@@ -20,7 +19,7 @@ usage()
 {
     exec 1>2   # Send standard output to standard error
     usage_info
-    exit 1
+    continue 2
 }
 
 error()
@@ -36,7 +35,8 @@ help()
     echo "  {-l|--legacy} type              -- launch for legacy menu control (possible values: yad, gtkdialog, kdialog, zenity, Xdialog, dialog, none. default: auto select)"
     echo "  {-h|--help}                     -- print this help message and exit"
     echo "  {-c|--config} config_location   -- set custom config location (default: ./options/options.json)"
-    exit 0
+    [[ $_ != $0 ]] && exit 0 2>/dev/null || return 0 2>/dev/null;
+
 }
 
 flags()
@@ -55,7 +55,7 @@ flags()
             OCONFIG="$1"
             shift;;
         (-h|--help)
-            help;;
+            help ;;
         (*) usage;;
         esac
     done
@@ -234,7 +234,7 @@ while :
 	done
 	if [[ "$(echo ${answer} |  tr -d '[:blank:]\n')" == "" ]]; then
 		echo "exiting..."
-    return 0 2>/dev/null
+    [[ $_ != $0 ]] && exit 0 2>/dev/null || return 0 2>/dev/null;
 	fi
 	
 done
