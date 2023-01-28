@@ -96,6 +96,7 @@ fi
 # Detect 32/64 bit host
 
 HOST_ARCH=$(uname -m)
+chmod +x $INCLDIR/jq-linux*
 if [[ "$HOST_ARCH" == "x86_64" ]]; then
 	alias jq=$INCLDIR/jq-linux64
 else
@@ -119,9 +120,10 @@ while :
 	answer=$(0< "${dir_tmp}/${file_tmp}")
 	
 	for i in "${MENUOPTIONS[@]}" ; do
-		if [[ "$(echo ${answer} |  tr -d '[:blank:]\n')" == "$(echo ${i} |  tr -d '[:blank:]\n')" ]]; then
+    i="$(echo ${i} |  tr -d '\n' | tr -d '\r' | tr -d \")"
+		if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "${i}" ]]; then
 			echo "Starting \"${i}\" ..."
-			j=$(echo ${i} |  tr -d '[:blank:]\n')
+			j=${i}
 			echo -e ${reset}""${reset}
 			echo -e ${teal}"${i}"${reset}
 			echo -e ${reset}""${reset}
@@ -129,7 +131,7 @@ while :
       SUBMENUOPTIONS=()
       while IFS= read -r subentry; do
           SUBMENUOPTIONS+=("$subentry")
-      done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .subMenuEntry[]?.name' $options_path)
+      done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .subMenuEntry[]?.name' $options_path)
       if [ "${SUBMENUOPTIONS[@]}" ]; then
         while :
         do
@@ -137,9 +139,9 @@ while :
           answer=$(0< "${dir_tmp}/${file_tmp}" )
           
           for s in "${SUBMENUOPTIONS[@]}" ; do
-            if [[ "$(echo ${answer} |  tr -d '[:blank:]\n')" == "$(echo ${s} |  tr -d '[:blank:]\n')" ]]; then
+            s="$(echo ${s} |  tr -d '\n' | tr -d '\r' | tr -d \")"
+            if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "${s}" ]]; then
               notify_message "Starting \"${s}\" ..."
-              s=$(echo ${s} |  tr -d '[:blank:]\n')
               echo -e ${reset}""${reset}
               echo -e ${ltgreen}"${s}"${reset}
               echo -e ${reset}""${reset}
@@ -148,7 +150,7 @@ while :
               SUBMENUITEMDEPS=()
               while IFS= read -r menuitem; do
                   SUBMENUITEMDEPS+=("$menuitem")
-              done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .dependencies[]?.dep' $options_path)
+              done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .dependencies[]?.dep' $options_path)
               smconfigerror="false"
               if [ "${SUBMENUITEMDEPS[@]}" ]; then
                 for sm in "${SUBMENUITEMDEPS[@]}" ; do
@@ -168,7 +170,7 @@ while :
                 execSubCommand=()
                 while IFS= read -r subentry; do
                     execSubCommand+=("$subentry")
-                done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .subMenuEntry[]? | select(.name == "'$s'") | .command' $options_path)
+                done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .subMenuEntry[]? | select(.name == "'"$s"'") | .command' $options_path)
                 $execSubCommand # 2>/dev/null;
                 if [ $? -eq 0 ]; then
                     echo OK
@@ -182,7 +184,7 @@ while :
             fi
             
           done
-          if [[ "$(echo ${answer} |  tr -d '[:blank:]\n')" == "" ]]; then
+          if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "" ]]; then
             continue 2
           fi
           if [[ "${answer}" == ".." ]]; then
@@ -196,7 +198,7 @@ while :
       MENUITEMDEPS=()
       while IFS= read -r menuitem; do
           MENUITEMDEPS+=("$menuitem")
-      done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .dependencies[]?.dep' $options_path)
+      done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .dependencies[]?.dep' $options_path)
       mconfigerror="false"
       if [ "${MENUITEMDEPS[@]}" ]; then
         for m in "${MENUITEMDEPS[@]}" ; do
@@ -217,7 +219,7 @@ while :
         execCommand=()
         while IFS= read -r cmdentry; do
             execCommand+=("$cmdentry")
-        done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .command' $options_path)
+        done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .command' $options_path)
         echo "Executing: $execCommand"
         $execCommand # 2>/dev/null;
         if [ $? -eq 0 ]; then
@@ -232,7 +234,7 @@ while :
 		fi
 		
 	done
-	if [[ "$(echo ${answer} |  tr -d '[:blank:]\n')" == "" ]]; then
+	if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "" ]]; then
 		echo "exiting..."
     [[ $_ != $0 ]] && exit 0 2>/dev/null || return 0 2>/dev/null;
 	fi

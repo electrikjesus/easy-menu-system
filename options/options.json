@@ -6,7 +6,7 @@
     "options": {
       "menuEntry": [
         {
-          "name": "thisName",
+          "name": "this Name",
           "command": "bash this_script.sh",
           "dependencies": [
             {
@@ -15,7 +15,7 @@
           ]
         },
         {
-          "name": "thatName",
+          "name": "that Name",
           "command": "bash that_script.sh",
           "dependencies": [
             {
@@ -24,7 +24,7 @@
           ]
         },
         {
-          "name": "otherName",
+          "name": "other Name",
           "command": "",
           "dependencies": [
             {
@@ -33,7 +33,7 @@
           ],
           "subMenuEntry": [
             {
-              "name": "thisSubName",
+              "name": "this SubName",
               "command": "bash this_other_subscript.sh",
               "dependencies": [
                 {
