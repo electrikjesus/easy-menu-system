@@ -1,13 +1,18 @@
 #!/bin/sh
 # set -e
 
+# Start heading
+
 EASYLEGACY="false"
+OCONFIG=""
+
 arg0=$(basename "$0" .sh)
 blnk=$(echo "$arg0" | sed 's/./ /g')
 
 usage_info()
 {
     echo "Usage: $arg0 [-l|--legacy]"
+    echo "       $blnk [{-c|--config} config_location] "
     echo "       $blnk [-h|--help]"
 }
 
@@ -30,6 +35,7 @@ help()
     echo
     echo "  {-l|--legacy}                   -- launch for legacy tty"
     echo "  {-h|--help}                     -- Print this help message and exit"
+    echo "  {-c|--config} config_location   -- Set custom config location (default: ./options/options.json)"
     exit 0
 }
 
@@ -41,6 +47,11 @@ flags()
         (-l|--legacy)
             EASYLEGACY="true"
             shift;;
+        (-c|--config)
+            shift
+            [ $# = 0 ] && error "No config specified"
+            OCONFIG="$1"
+            shift;;
         (-h|--help)
             help;;
         (*) usage;;
@@ -49,6 +60,8 @@ flags()
 }
 
 flags "$@"
+
+# End heading
 
 SCRIPT_PATH=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 MAIN_SCRIPT_PATH=$SCRIPT_PATH
@@ -70,10 +83,13 @@ else
   source $MAIN_SCRIPT_PATH/includes/easybashgui.lib
 fi
 
-# if [ ! -d "$temp_path" ]; then
-# 	echo "Grabbing initial modules list"
-# 	mkdir -p $temp_path
-# fi
+# If OCONFIG is not "" then set the options file to the passed location
+if [[ "$OCONFIG" != "" ]]; then
+  options_path=$OCONFIG
+else
+# Otherwise, set the options file to the default location
+  options_path=$optionspath/options.json
+fi
 
 # Detect 32/64 bit host
 
@@ -93,7 +109,7 @@ fi
 MENUOPTIONS=()
 while IFS= read -r entry; do
     MENUOPTIONS+=("$entry")
-done < <(jq -r '.options.menuEntry[]?.name' $optionspath/options.json)
+done < <(jq -r '.options.menuEntry[]?.name' $options_path)
 
 while :
 	do
@@ -111,7 +127,7 @@ while :
       SUBMENUOPTIONS=()
       while IFS= read -r subentry; do
           SUBMENUOPTIONS+=("$subentry")
-      done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .subMenuEntry[]?.name' $optionspath/options.json)
+      done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .subMenuEntry[]?.name' $options_path)
       if [ "${SUBMENUOPTIONS[@]}" ]; then
         while :
         do
@@ -127,14 +143,39 @@ while :
               echo -e ${reset}""${reset}
               # Check Dependencies
 
-              # Execute Option
-              echo "executing command for: ${s}"
-              
-              execSubCommand=()
-              while IFS= read -r subentry; do
-                  execSubCommand+=("$subentry")
-              done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .subMenuEntry[]? | select(.name == "'$s'") | .command' $optionspath/options.json)
-              echo "${execSubCommand[@]}"
+              SUBMENUITEMDEPS=()
+              while IFS= read -r menuitem; do
+                  SUBMENUITEMDEPS+=("$menuitem")
+              done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .dependencies[]?.dep' $options_path)
+              smconfigerror="false"
+              if [ "${SUBMENUITEMDEPS[@]}" ]; then
+                for sm in "${SUBMENUITEMDEPS[@]}" ; do
+                  $sm # 2>/dev/null;
+                  if [ $? -eq 0 ]; then
+                      echo OK
+                  else
+                      echo FAIL
+                      smconfigerror="true";
+                  fi
+                done
+              fi
+              if [[ "$smconfigerror" != "true" ]]; then
+                # Execute Option
+                echo "executing command for: ${s}"
+                
+                execSubCommand=()
+                while IFS= read -r subentry; do
+                    execSubCommand+=("$subentry")
+                done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .subMenuEntry[]? | select(.name == "'$s'") | .command' $options_path)
+                $execSubCommand # 2>/dev/null;
+                if [ $? -eq 0 ]; then
+                    echo OK
+                else
+                    echo "The script failed" >&2
+                fi
+              else
+                echo "Dependencies not met for: $s"
+              fi
               continue 2
             fi
             
@@ -150,14 +191,41 @@ while :
 
       # Check Dependencies
 
-			# Execute Option
-      echo "executing command for: ${i}"
-              
-      execCommand=()
-      while IFS= read -r cmdentry; do
-          execCommand+=("$cmdentry")
-      done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .command' $optionspath/options.json)
-      echo "${execCommand[@]}"
+      MENUITEMDEPS=()
+      while IFS= read -r menuitem; do
+          MENUITEMDEPS+=("$menuitem")
+      done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .dependencies[]?.dep' $options_path)
+      mconfigerror="false"
+      if [ "${MENUITEMDEPS[@]}" ]; then
+        for m in "${MENUITEMDEPS[@]}" ; do
+          echo $m
+          $m # 2>/dev/null;
+          if [ $? -eq 0 ]; then
+              echo OK
+          else
+              echo FAIL
+              mconfigerror="true";
+          fi
+        done
+      fi
+      if [[ "$mconfigerror" != "true" ]]; then
+        # Execute Option
+        echo "executing command for: ${i}"
+                
+        execCommand=()
+        while IFS= read -r cmdentry; do
+            execCommand+=("$cmdentry")
+        done < <(jq -r '.options.menuEntry[]? | select(.name == "'$i'") | .command' $options_path)
+        echo "Executing: $execCommand"
+        $execCommand # 2>/dev/null;
+        if [ $? -eq 0 ]; then
+            echo OK
+        else
+            echo "The script failed" >&2;
+        fi
+      else
+        echo "Dependencies not met for: $i"
+      fi
 
 		fi
 		
