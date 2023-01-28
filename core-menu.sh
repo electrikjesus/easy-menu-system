@@ -11,7 +11,7 @@ blnk=$(echo "$arg0" | sed 's/./ /g')
 
 usage_info()
 {
-    echo "Usage: $arg0 [-l|--legacy]"
+    echo "Usage: $arg0 [-l|--legacy] type"
     echo "       $blnk [{-c|--config} config_location] "
     echo "       $blnk [-h|--help]"
 }
@@ -33,9 +33,9 @@ help()
 {
     usage_info
     echo
-    echo "  {-l|--legacy}                   -- launch for legacy tty"
-    echo "  {-h|--help}                     -- Print this help message and exit"
-    echo "  {-c|--config} config_location   -- Set custom config location (default: ./options/options.json)"
+    echo "  {-l|--legacy} type              -- launch for legacy menu control (possible values: yad, gtkdialog, kdialog, zenity, Xdialog, dialog, none. default: auto select)"
+    echo "  {-h|--help}                     -- print this help message and exit"
+    echo "  {-c|--config} config_location   -- set custom config location (default: ./options/options.json)"
     exit 0
 }
 
@@ -45,6 +45,8 @@ flags()
     do
         case "$1" in
         (-l|--legacy)
+            shift
+            [ $# = 0 ] && OCTYPE="" || OCTYPE="$1"
             EASYLEGACY="true"
             shift;;
         (-c|--config)
@@ -77,7 +79,7 @@ source $INCLDIR/common.sh
 # if debug or tty, set "supermode" var to "none"
 # export supermode="none" && source easybashgui
 if [[ "$EASYLEGACY" == "true" ]]; then
-  export supermode="none" && source $MAIN_SCRIPT_PATH/includes/easybashgui
+  export supermode="$OCTYPE" && source $MAIN_SCRIPT_PATH/includes/easybashgui
 else
   export supermode="" && source $MAIN_SCRIPT_PATH/includes/easybashgui
   source $MAIN_SCRIPT_PATH/includes/easybashgui.lib
