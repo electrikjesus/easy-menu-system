@@ -15,4 +15,4 @@ The first version of this menu system was included in [Android-Generic Project](
 
 Some of the examples will be for various uses:
 
- - System Startup Menu: [Autostart Script Example](configs/startup-script/autostart-script-example/readme.md)
+ - System Startup Menu: [Autostart Script Example](https://github.com/electrikjesus/easy-menu-system/tree/master/configs/startup-script#autostart-script-example)
