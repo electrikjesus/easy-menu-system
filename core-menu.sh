@@ -12,6 +12,7 @@ usage_info()
 {
     echo "Usage: $arg0 [-l|--legacy] type"
     echo "       $blnk [{-c|--config} config_location] "
+    echo "       $blnk [-d|--debug]"
     echo "       $blnk [-h|--help]"
 }
 
@@ -34,6 +35,7 @@ help()
     echo
     echo "  {-l|--legacy} type              -- launch for legacy menu control (possible values: yad, gtkdialog, kdialog, zenity, Xdialog, dialog, none. default: auto select)"
     echo "  {-h|--help}                     -- print this help message and exit"
+    echo "  {-d|--debug}                     -- prints verbose info for debugging"
     echo "  {-c|--config} config_location   -- set custom config location (default: ./options/options.json)"
     [[ $_ != $0 ]] && exit 0 2>/dev/null || return 0 2>/dev/null;
 
@@ -53,6 +55,10 @@ flags()
             shift
             [ $# = 0 ] && error "No config specified"
             OCONFIG="$1"
+            shift;;
+        (-d|--debug)
+            echo "Debug Mode Enabled"
+            EZ_DEBUG_MODE="true"
             shift;;
         (-h|--help)
             help ;;
@@ -85,6 +91,12 @@ else
   source $MAIN_SCRIPT_PATH/includes/easybashgui.lib
 fi
 
+if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+  export EZ_DEBUG_MODE="true"
+else
+  export EZ_DEBUG_MODE="false"
+fi
+
 # If OCONFIG is not "" then set the options file to the passed location
 if [[ "$OCONFIG" != "" ]]; then
   options_path=$OCONFIG
@@ -112,6 +124,9 @@ fi
 MENUOPTIONS=()
 while IFS= read -r entry; do
     MENUOPTIONS+=("$entry")
+    if [[ "$EZ_DEBUG_MODE" == "true" ]]; then 
+      echo "Menuoptions Entry: $entry"
+    fi
 done < <(jq -r '.options.menuEntry[]?.name' $options_path)
 
 while :
@@ -122,12 +137,15 @@ while :
 	for i in "${MENUOPTIONS[@]}" ; do
     i="$(echo ${i} |  tr -d '\n' | tr -d '\r' | tr -d \")"
 		if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "${i}" ]]; then
-			echo "Starting \"${i}\" ..."
+      if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+			  echo "Starting \"${i}\" ..."
+      fi
 			j=${i}
-			echo -e ${reset}""${reset}
-			echo -e ${teal}"${i}"${reset}
-			echo -e ${reset}""${reset}
-
+      if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+        echo -e ${reset}""${reset}
+        echo -e ${teal}"${i}"${reset}
+        echo -e ${reset}""${reset}
+      fi
       SUBMENUOPTIONS=()
       while IFS= read -r subentry; do
           SUBMENUOPTIONS+=("$subentry")
@@ -142,9 +160,11 @@ while :
             s="$(echo ${s} |  tr -d '\n' | tr -d '\r' | tr -d \")"
             if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "${s}" ]]; then
               notify_message "Starting \"${s}\" ..."
-              echo -e ${reset}""${reset}
-              echo -e ${ltgreen}"${s}"${reset}
-              echo -e ${reset}""${reset}
+              if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+                echo -e ${reset}""${reset}
+                echo -e ${ltgreen}"${s}"${reset}
+                echo -e ${reset}""${reset}
+              fi
               # Check Dependencies
 
               SUBMENUITEMDEPS=()
@@ -156,29 +176,43 @@ while :
                 for sm in "${SUBMENUITEMDEPS[@]}" ; do
                   $sm # 2>/dev/null;
                   if [ $? -eq 0 ]; then
+                    if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
                       echo OK
+                    fi
                   else
+                    if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
                       echo FAIL
-                      smconfigerror="true";
+                    fi
+                    smconfigerror="true";
                   fi
                 done
               fi
               if [[ "$smconfigerror" != "true" ]]; then
                 # Execute Option
-                echo "executing command for: ${s}"
-                
+                if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+                  echo "executing command for: ${s}"
+                fi
                 execSubCommand=()
                 while IFS= read -r subentry; do
                     execSubCommand+=("$subentry")
                 done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .subMenuEntry[]? | select(.name == "'"$s"'") | .command' $options_path)
+                if [[ "$EZ_DEBUG_MODE" == "true" ]]; then 
+                  echo "Ececuting SubCommand Entry: $execSubCommand"
+                fi
                 $execSubCommand # 2>/dev/null;
                 if [ $? -eq 0 ]; then
+                  if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
                     echo OK
+                  fi
                 else
+                  if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
                     echo "The script failed" >&2
+                  fi
                 fi
               else
-                echo "Dependencies not met for: $s"
+                if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+                  echo "Dependencies not met for: $s"
+                fi
               fi
               continue 2
             fi
@@ -202,40 +236,57 @@ while :
       mconfigerror="false"
       if [ "${MENUITEMDEPS[@]}" ]; then
         for m in "${MENUITEMDEPS[@]}" ; do
-          echo $m
+          if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+            echo $m
+          fi
           $m # 2>/dev/null;
           if [ $? -eq 0 ]; then
+            if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
               echo OK
+            fi
           else
+            if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
               echo FAIL
-              mconfigerror="true";
+            fi
+             mconfigerror="true";
           fi
         done
       fi
       if [[ "$mconfigerror" != "true" ]]; then
         # Execute Option
-        echo "executing command for: ${i}"
-                
+        if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+          echo "executing command for: ${i}"
+        fi      
         execCommand=()
         while IFS= read -r cmdentry; do
             execCommand+=("$cmdentry")
         done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .command' $options_path)
-        echo "Executing: $execCommand"
+        if [[ "$EZ_DEBUG_MODE" == "true" ]]; then 
+          echo "Executing Command Entry: $execCommand"
+        fi
         $execCommand # 2>/dev/null;
         if [ $? -eq 0 ]; then
+          if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
             echo OK
+          fi
         else
+          if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
             echo "The script failed" >&2;
+          fi
         fi
       else
-        echo "Dependencies not met for: $i"
+        if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+          echo "Dependencies not met for: $i"
+        fi
       fi
 
 		fi
 		
 	done
 	if [[ "$(echo ${answer} |  tr -d '\n' | tr -d '\r')" == "" ]]; then
-		echo "exiting..."
+    if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+		  echo "exiting..."
+    fi
     [[ $_ != $0 ]] && exit 0 2>/dev/null || return 0 2>/dev/null;
 	fi
 	
