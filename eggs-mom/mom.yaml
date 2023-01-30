@@ -1,0 +1,153 @@
+project: eggs-mom
+version: 0.1
+updated: '2023-01-30T00:00:00.000Z'
+debug: true
+options:
+ menuEntry:
+ - name: "adapt"
+   descr: "adapt monitor resolution for VM only"
+   command: "adapt"
+   dependencies: 
+    dep: "ls /usr/bin/adapt"
+ - name: "calamares"
+   descr: "calamares configuration or install and configure it"
+   command: "nada"
+   dependencies: 
+    dep: "ls /usr/bin/adapt"
+   submenu: 
+   - name: "configure"
+     descr: "create calamares configuration"
+     command: "sudo calamares"
+     dependencies: 
+      dep: "ls /usr/bin/calamares"
+   - name: "install"
+     descr: "install calamares and create configuration"
+     command: "sudo calamares --install"
+     dependencies: 
+      dep: "ls /usr/bin/calamares"
+   - name: "remove"
+     descr: "remove calamares installer"
+     command: "sudo calamares --remove"
+     dependencies: 
+      dep: "ls /etc/calamares"
+   - name: "dad"
+     descr: "ask help from daddy - configuration helper"
+     command: ""
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+     submenu:
+     - name: "clean"
+       descr: "clean and rebuild configuration"
+       command: "sudo eggs dad --clean"
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+     - name: "default"
+       descr: "clean and rebuild configuration default values"
+       command: "sudo eggs dad --default"
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+     - name: "interactive"
+       descr: "rebuild configuration interactive"
+       command: "sudo eggs dad"
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+   - name: "help"
+     descr: "display help for egg"
+     command: "eggs -h"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name : "kill"
+     descr: "kill the eggs/free the nest"
+     command: "eggs kill"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name: "install"
+     descr: "krill TUI system installer - the egg becomes a chick"
+     command : "sudo eggs install"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name: "produce"
+     descr: "the system produces an egg: iso image of your system"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name: "status"
+     descr: "eggs status"
+     command: "eggs status"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name: "update"
+     descr: "update the penguin's eggs tool"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name: "documentation"
+     descr: "book/book_translated/manual/man"
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+   - name: "export"
+     descr: "export packages/iso"
+     command: ""
+     dependencies: 
+      dep: "ls /usr/bin/eggs"
+     submenu:
+     - name: "deb"
+       descr: "export debs packages"
+       command: "eggs export deb"
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+     - name: "iso"
+       descr: "export iso image"
+       command: "eggs export iso"
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+     - name: "tools"
+       descr: "tools"
+       command: ""
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+       submenu:
+       - name: "clean"
+         descr: "clean"
+         command: "sudo eggs tools clean"
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+       - name: "skel"
+         descr: "skel"
+         command: "sudo eggs tools skel"
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+       - name: "yolk"
+         descr: "yolk"
+         command: "sudo eggs tools yolk"
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+     - name: "wardrobe"
+       descr: "wardrobe"
+       command: ""
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
+       submenu:
+       - name: "get"
+         descr: "clone wardrobe"
+         command: "eggs wardrobe get"
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+       - name: "list"
+         descr: "list costumes and accessories"
+         command: ""
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+       - name: "show"
+         descr: "show costume or accessory"
+         command: "eggs wardrobe show"
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+       - name: "wear"
+         descr: "dress a costume or an accessory"
+         command: "eggs wardrobe wear"
+         dependencies: 
+          dep: "ls /usr/bin/eggs"
+     - name: "quit"
+       descr: "mom say hello to her baby"
+       command: "exit 0"
+       dependencies: 
+        dep: "ls /usr/bin/eggs"
