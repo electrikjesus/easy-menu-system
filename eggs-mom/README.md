@@ -1,17 +1,23 @@
-# eggs mom
+# project eggs mom
 
+## update
 I added all flags to the yaml definition, we have both: 
 
 * boolean
 * string
 
-I suppose to get something like that:
+# Plan
+I want to get something like that:
 
+## main menu
+
+```
 ===================================================
-MAIN
-
 eggs
 
+On the road of Remastersys, Refracta, Systemback and father Knoppix!
+
+adapt
 calamares
 dad
 help
@@ -24,8 +30,10 @@ status
 update
 export
 tools
+```
 
-
+## calamares:
+```
 ===================================================
 calamares
 
@@ -36,7 +44,10 @@ calamares configuration or install and configure it
 [ ] remove
 [ ] theme: 
 [ ] verbose
+```
 
+## install
+```
 ===================================================
 install
 
@@ -53,8 +64,10 @@ krill TUI system installer - the egg becomes a chick
 [ ] small
 [ ] unattended
 [ ] verbose
+```
 
-
+## produce
+```
 ===================================================
 produce
 
@@ -70,4 +83,4 @@ the system produces an egg: iso image of your system
 [ ] script
 [ ] verbose
 [ ] yolk
-
+```
