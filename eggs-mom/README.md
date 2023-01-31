@@ -7,7 +7,7 @@ I added all flags to the yaml definition, we have both:
 * string
 
 # Plan
-I want to get something like that:
+I want to get something like that - note we discard help and nointeractive -:
 
 ## main menu
 
@@ -38,7 +38,6 @@ tools
 calamares
 
 calamares configuration or install and configure it
-[ ] help 
 [ ] install 
 [ ] release 
 [ ] remove
@@ -56,7 +55,6 @@ krill TUI system installer - the egg becomes a chick
 [ ] suspend
 [ ] custom
 [ ] domain:
-[ ] help
 [ ] ip
 [ ] crypted
 [ ] pve
@@ -76,9 +74,7 @@ the system produces an egg: iso image of your system
 [ ] backup
 [ ] clone
 [ ] fast
-[ ] help
 [ ] max
-[ ] nointeractive
 [ ] prefix:
 [ ] script
 [ ] verbose
