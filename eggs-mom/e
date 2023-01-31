@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#
+# testing jq
+# 
+
+# Disable unicode.
+LC_ALL=C
+LANG=C
+
+clear
+echo "bash $BASH_VERSION"
+echo "================="
+
+NAME=$(jq .options.menuEntry[$1].name mom.json)
+DESCR=$(jq .options.menuEntry[$1].descr mom.json)
+FLAGS=$(jq .options.menuEntry[$1].flags[].flag mom.json)
+echo "name: ${NAME}"
+echo "description: ${DESCR}"
+echo "flags: ${FLAGS}"
+
+

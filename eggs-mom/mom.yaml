@@ -53,7 +53,7 @@ options:
     - flag: "clean"
       descr: "clean and rebuild configuration"
       type: "boolean"
-    - flad: "default"
+    - flag: "default"
       descr: "clean and rebuild configuration default values"
       type: "boolean"
 
