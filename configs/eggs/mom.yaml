@@ -127,6 +127,7 @@ options:
 
  - name: "produce"
    descr: "the system produces an egg: iso image of your system"
+   command : "sudo eggs produce"
    dependencies: 
     dep: "ls /usr/bin/eggs"
    flags:
@@ -244,7 +245,7 @@ options:
 
  - name: "export"
    descr: "export packages/iso"
-   command: ""
+   command: "eggs export "
    dependencies: 
     dep: "ls /usr/bin/eggs"
    submenu:
@@ -282,7 +283,7 @@ options:
 
  - name: "tools"
    descr: "various tools"
-   command: ""
+   command: "sudo eggs tools"
    dependencies: 
     dep: "ls /usr/bin/eggs"
    submenu:
@@ -335,6 +336,7 @@ options:
       - flag: "verbose"
         descr: "verbose"
         type: "boolean"
+        
  - name: "quit"
    descr: "exit"
    command: "exit 0"

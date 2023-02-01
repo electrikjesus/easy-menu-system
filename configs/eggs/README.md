@@ -80,4 +80,8 @@ the system produces an egg: iso image of your system
 
 # .oclif.manifest.json
 
-After wrote the entire mom.yaml I realized there is the opportunity of use the file .oclif.manifest.json.
+After wrote the entire mom.yaml I realized there is the opportunity of use the file .oclif.manifest.json this is automatically generated and update when I create eggs package.
+
+
+
+
