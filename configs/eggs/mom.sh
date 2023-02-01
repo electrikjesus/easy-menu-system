@@ -24,25 +24,25 @@ main() {
             adapt)
                 flags 0 ;;
             calamares)
-                flags 1;;
+                flagsDialog 1;;
             dad)
-                flags 2;;
+                flagsDialog 2;;
             help)
-                flags 3;;
+                flagsDialog 3;;
             kill)
-                flags 4;;
+                flagsDialog 4;;
             install)
-                flags 5;;
+                flagsDialog 5;;
             produce)
-                flags 6;;
+                flagsDialog 6;;
             syncfrom)
-                flags 7;;
+                flagsDialog 7;;
             syncto)
-                flags 8;;
+                flagsDialog 8;;
             status)
-                flags 9;;
+                flagsDialog 9;;
             update)
-                flags 10;;
+                flagsDialog 10;;
             export)
                 submenu 11;;
             tools)
@@ -54,23 +54,17 @@ main() {
 
 }
 
-
-function tools() {
-    echo "tools"
-
-}
-
 ################################
-function flags() {
-    filter=".options.menuEntry[$1].flags"
+function flagsDialog() {
+    filter=".options.menuEntry[$1].flags[].flag"
     flags=$(jq ${filter} ${MSP}/eggs.json )
-    echo "flags: ${flags}"
+    echo "${flags}"
     press_a_key_to_continue
 }
 
 ################################
 function submenu() {
-    _filter=".options.menuEntry[$1].submenu[].name"
+    _filter=".options.menuEntry[$1].submenu[$2].name"
     _name=$(jq ${_filter} ${MSP}/eggs.json )
     menu ${_name}
     _answer=$(0< "${dir_tmp}/${file_tmp}" )
