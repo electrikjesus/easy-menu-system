@@ -53,7 +53,7 @@ install
 krill TUI system installer - the egg becomes a chick
 [ ] none
 [ ] suspend
-[ ] custom
+[ ] custom:
 [ ] domain:
 [ ] ip
 [ ] crypted
@@ -72,11 +72,18 @@ produce
 the system produces an egg: iso image of your system
 
 [ ] backup
+[ ] basename:
 [ ] clone
 [ ] fast
 [ ] max
 [ ] prefix:
+[ ] release
 [ ] script
+[ ] theme:
 [ ] verbose
 [ ] yolk
 ```
+
+# .oclif.manifest.json
+
+After wrote the entire mom.yaml I realized there is the opportunity of use the file .oclif.manifest.json.

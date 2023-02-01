@@ -1,5 +1,5 @@
 {
-  "project": "eggs-mom",
+  "project": "mom",
   "version": 0.2,
   "updated": "2023-01-31T00:00:00.000Z",
   "debug": true,
@@ -79,7 +79,7 @@
             "type": "boolean"
           },
           {
-            "flad": "default",
+            "flag": "default",
             "descr": "clean and rebuild configuration default values",
             "type": "boolean"
           }
@@ -195,9 +195,19 @@
         },
         "flags": [
           {
+            "flag": "addons",
+            "descr": "addons to be used: adapt, ichoice, pve, rsupport",
+            "type": "string[]"
+          },
+          {
             "flag": "backup",
             "descr": "backup mode (CRYPTED)",
             "type": "boolean"
+          },
+          {
+            "flag": "basename",
+            "descr": "basename, default hostname",
+            "type": "string"
           },
           {
             "flag": "clone",
@@ -230,9 +240,19 @@
             "type": "string"
           },
           {
+            "flag": "release",
+            "descr": "release: max compression, remove penguins-eggs and calamares after installation",
+            "type": "boolean"
+          },
+          {
             "flag": "script",
             "descr": "script mode. Just generate scripts to manage iso build",
             "type": "boolean"
+          },
+          {
+            "flag": "theme",
+            "descr": "theme for livecd, calamares branding and partitions",
+            "type": "string"
           },
           {
             "flag": "verbose",
@@ -240,7 +260,7 @@
             "type": "boolean"
           },
           {
-            "flag": "yoly",
+            "flag": "yolk",
             "descr": "force yolk renew",
             "type": "boolean"
           }
@@ -412,7 +432,7 @@
       },
       {
         "name": "tools",
-        "descr": "varius tools",
+        "descr": "various tools",
         "command": "",
         "dependencies": {
           "dep": "ls /usr/bin/eggs"
@@ -497,6 +517,11 @@
             ]
           }
         ]
+      },
+      {
+        "name": "quit",
+        "descr": "exit",
+        "command": "exit 0"
       }
     ]
   }

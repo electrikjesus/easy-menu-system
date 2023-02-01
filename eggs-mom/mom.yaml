@@ -1,4 +1,4 @@
-project: eggs-mom
+project: mom
 version: 0.2
 updated: '2023-01-31T00:00:00.000Z'
 debug: true
@@ -130,9 +130,15 @@ options:
    dependencies: 
     dep: "ls /usr/bin/eggs"
    flags:
+   - flag: "addons"
+     descr: "addons to be used: adapt, ichoice, pve, rsupport"
+     type: "string[]"
    - flag: "backup"
      descr: "backup mode (CRYPTED)"
      type: "boolean"
+   - flag: "basename"
+     descr: "basename, default hostname"
+     type: "string"
    - flag: "clone"
      descr: "clone mode"
      type: "boolean"
@@ -151,13 +157,19 @@ options:
    - flag: "prefix"
      descr: "prefix=value"
      type: "string"
+   - flag: "release"
+     descr: "release: max compression, remove penguins-eggs and calamares after installation"
+     type: "boolean"
    - flag: "script"
      descr: "script mode. Just generate scripts to manage iso build"
      type: "boolean"
+   - flag: "theme"
+     descr: "theme for livecd, calamares branding and partitions"
+     type: "string"
    - flag: "verbose"
      descr: "verbos"
      type: "boolean"
-   - flag: "yoly"
+   - flag: "yolk"
      descr: "force yolk renew"
      type: "boolean"
 
@@ -269,7 +281,7 @@ options:
 
 
  - name: "tools"
-   descr: "varius tools"
+   descr: "various tools"
    command: ""
    dependencies: 
     dep: "ls /usr/bin/eggs"
@@ -323,3 +335,6 @@ options:
       - flag: "verbose"
         descr: "verbose"
         type: "boolean"
+ - name: "quit"
+   descr: "exit"
+   command: "exit 0"
