@@ -190,6 +190,7 @@
       {
         "name": "produce",
         "descr": "the system produces an egg: iso image of your system",
+        "command": "sudo eggs produce",
         "dependencies": {
           "dep": "ls /usr/bin/eggs"
         },
@@ -374,7 +375,7 @@
       {
         "name": "export",
         "descr": "export packages/iso",
-        "command": "",
+        "command": "eggs export ",
         "dependencies": {
           "dep": "ls /usr/bin/eggs"
         },
@@ -433,7 +434,7 @@
       {
         "name": "tools",
         "descr": "various tools",
-        "command": "",
+        "command": "sudo eggs tools",
         "dependencies": {
           "dep": "ls /usr/bin/eggs"
         },
