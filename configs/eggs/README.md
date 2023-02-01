@@ -82,6 +82,13 @@ the system produces an egg: iso image of your system
 
 After wrote the entire mom.yaml I realized there is the opportunity of use the file .oclif.manifest.json this is automatically generated and update when I create eggs package.
 
+# problems
+I can't find a way to select the contents of command, if not by: 
+```
+flags=$(jq '.options.menuEntry[0].flags' eggs.json )
+```
+I see in manifest, they use objects inside object with a field: id, can be a solution? I don't know.
 
+It's very interesting for me to use jq or yt, expecially thinking I can build an approch starting from manifest.yaml, but at the moment not capable to go too inside.
 
-
+But if you will continue in same way, I will jump on again.

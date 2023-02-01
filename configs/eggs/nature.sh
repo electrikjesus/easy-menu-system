@@ -57,7 +57,7 @@ function tools() {
 
 ################################
 function adapt() {
-    flags=$(jq '.options.menuEntry[0].flags' mom.json )
+    flags=$(jq '.options.menuEntry[0].flags' eggs.json )
     echo "flags: ${flags}"
     press_a_key_to_continue
 }
