@@ -25,8 +25,9 @@ update
 export
 tools
 ```
+After we will select one choise, we will go in a form for the command. I just create same samples: calamares, install and produce.
 
-## calamares:
+## calamares
 ```
 ===================================================
 calamares
