@@ -2,9 +2,8 @@
 #
 #####################################
 
-source lib/easybashgui
-source lib/easybashgui.lib
-#source lib/easybashgui-debug
+source ../includes/easybashgui
+source ../includes/easybashgui.lib
 
 main() {
     title=$(jq .project mom.json)
@@ -42,11 +41,17 @@ main() {
             export)
                 ;;
             tools)
-                ;;
+                tools ;;
             quit)
                 theEnd ;;
         esac
     done
+
+}
+
+
+function tools() {
+    echo "tools"
 
 }
 
@@ -66,7 +71,7 @@ function press_a_key_to_continue {
 ################################
 function theEnd {
    clear
-   echo "chiusura regolare"
+   echo "regular exit"
    exit 0
 }
 

@@ -1,10 +1,4 @@
-# project eggs mom
-
-## update
-I added all flags to the yaml definition, we have both: 
-
-* boolean
-* string
+# project eggs TUI/GUI
 
 # Plan
 I want to get something like that - note we discard help and nointeractive -:
@@ -41,7 +35,7 @@ calamares configuration or install and configure it
 [ ] install 
 [ ] release 
 [ ] remove
-[ ] theme: 
+[ ] theme: ________________
 [ ] verbose
 ```
 
@@ -53,8 +47,8 @@ install
 krill TUI system installer - the egg becomes a chick
 [ ] none
 [ ] suspend
-[ ] custom:
-[ ] domain:
+[ ] custom: ________________
+[ ] domain: ________________
 [ ] ip
 [ ] crypted
 [ ] pve
@@ -72,14 +66,14 @@ produce
 the system produces an egg: iso image of your system
 
 [ ] backup
-[ ] basename:
+[ ] basename: ________________
 [ ] clone
 [ ] fast
 [ ] max
-[ ] prefix:
+[ ] prefix: ________________
 [ ] release
 [ ] script
-[ ] theme:
+[ ] theme: ________________
 [ ] verbose
 [ ] yolk
 ```

@@ -1,2 +1,1 @@
-yq . mom.yaml > mom.json
 ../core-menu.sh -c mom.json
