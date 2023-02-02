@@ -150,7 +150,7 @@ while :
       while IFS= read -r subentry; do
           SUBMENUOPTIONS+=("$subentry")
       done < <(jq -r '.options.menuEntry[]? | select(.name == "'"$i"'") | .subMenuEntry[]?.name' $options_path)
-      if [ "${SUBMENUOPTIONS[@]}" ]; then
+      if [[ "${SUBMENUOPTIONS[@]}" != "" ]]; then
         while :
         do
           menu ".." "${SUBMENUOPTIONS[@]}"
