@@ -1,5 +1,8 @@
 # project eggs TUI/GUI
 
+# References
+* [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible#table-of-contents)
+
 # Plan
 I want to get something like that - note we discard help and nointeractive -:
 

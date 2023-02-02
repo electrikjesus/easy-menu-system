@@ -1,0 +1,3 @@
+yq $1.yaml -o json >$1.json
+
+
