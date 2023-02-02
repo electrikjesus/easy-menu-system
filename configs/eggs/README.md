@@ -1,5 +1,10 @@
 # project eggs TUI/GUI
 
+# Tools
+* [jq](https://stedolan.github.io/jq/) jq original
+* [yq](https://github.com/mikefarah/yq) a lightweight and portable command-line YAML, JSON and XML processor.
+* [jiq](https://github.com/fiatjaf/jiq) you can drill down interactively by using jq filtering queries.
+
 # References
 * [pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible#table-of-contents)
 

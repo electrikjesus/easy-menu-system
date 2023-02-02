@@ -61,7 +61,7 @@ main() {
 function flagsDialog() {
     #filter=".options.menuEntry[$1].flags[].flag"
     #       '.options.menuEntry[]? | select(.name == "'"$i"'") | .flags[].flag' 
-    _filter=".options.menuEntry[]? | select(.name == $1) | .flags[].flag"
+    _filter=".options.menuEntry[]? | select(.name == $answer) | .flags[].flag"
     flags=$(jq -r ${_filter} ${MSP}/eggs.json )
     echo "${flags}"
     echo $_filter
