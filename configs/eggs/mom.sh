@@ -2,8 +2,11 @@
 #
 #####################################
 
+# Disable unicode.
+LC_ALL=C
+LANG=C
+
 MSP=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-#/home/artisan/easy-menu-system/configs/eggs
 echo $MSP
 source ${MSP}/../../includes/easybashgui
 source ${MSP}/../../includes/easybashgui.lib
@@ -22,11 +25,11 @@ main() {
 
         case "$answer" in 
             adapt)
-                flags 0 ;;
+                flagsDialog 0 ;;
             calamares)
                 flagsDialog 1;;
             dad)
-                flagsDialog 2;;
+                flagsDialog $answer;;
             help)
                 flagsDialog 3;;
             kill)
@@ -47,7 +50,7 @@ main() {
                 submenu 11;;
             tools)
                 submenu 12 ;;
-            quit)
+            *) #quit and others
                 theEnd ;;
         esac
     done
@@ -56,9 +59,12 @@ main() {
 
 ################################
 function flagsDialog() {
-    filter=".options.menuEntry[$1].flags[].flag"
-    flags=$(jq ${filter} ${MSP}/eggs.json )
+    #filter=".options.menuEntry[$1].flags[].flag"
+    #       '.options.menuEntry[]? | select(.name == "'"$i"'") | .flags[].flag' 
+    _filter=".options.menuEntry[]? | select(.name == $1) | .flags[].flag"
+    flags=$(jq -r ${_filter} ${MSP}/eggs.json )
     echo "${flags}"
+    echo $_filter
     press_a_key_to_continue
 }
 
