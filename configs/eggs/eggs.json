@@ -21,17 +21,17 @@
             "type": "boolean"
           }
         ],
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/adapt"
-        }
+        }]
       },
       {
         "name": "calamares",
         "descr": "calamares configuration or install and configure it",
         "command": "sudo eggs calamares",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /etc/calamares"
-        },
+        }],
         "flags": [
           {
             "flag": "help",
@@ -69,9 +69,9 @@
         "name": "dad",
         "descr": "ask help from daddy - configuration helper",
         "command": "sudo eggs dad",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "clean",
@@ -89,17 +89,17 @@
         "name": "help",
         "descr": "display help",
         "command": "eggs -h",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        }
+        }]
       },
       {
         "name": "kill",
         "descr": "kill the eggs/free the nest",
         "command": "sudo eggs kill",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "help",
@@ -117,9 +117,9 @@
         "name": "install",
         "descr": "krill TUI system installer - the egg becomes a chick",
         "command": "sudo eggs install",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "none",
@@ -191,9 +191,9 @@
         "name": "produce",
         "descr": "the system produces an egg: iso image of your system",
         "command": "sudo eggs produce",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "addons",
@@ -271,9 +271,9 @@
         "name": "syncfrom",
         "descr": "restore users and user data from a LUKS volumes",
         "command": "sudo eggs syncfrom",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "file",
@@ -306,9 +306,9 @@
         "name": "syncto",
         "descr": "save users and user data in a LUKS volume inside the iso",
         "command": "sudo eggs syncto",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "file",
@@ -336,9 +336,9 @@
         "name": "status",
         "descr": "eggs status",
         "command": "eggs status",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "verbose",
@@ -356,9 +356,9 @@
         "name": "update",
         "descr": "update the penguin's eggs tool",
         "command": "sudo eggs update",
-        "dependencies": {
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
+        }],
         "flags": [
           {
             "flag": "verbose",
@@ -375,11 +375,11 @@
       {
         "name": "export",
         "descr": "export packages/iso",
-        "command": "eggs export ",
-        "dependencies": {
+        "command": "",
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
-        "submenu": [
+        }],
+        "subMenuEntry": [
           {
             "name": "deb",
             "descr": "export deb packages to the destination host",
@@ -434,11 +434,11 @@
       {
         "name": "tools",
         "descr": "various tools",
-        "command": "sudo eggs tools",
-        "dependencies": {
+        "command": "",
+        "dependencies": [{
           "dep": "ls /usr/bin/eggs"
-        },
-        "submenu": [
+        }],
+        "subMenuEntry": [
           {
             "name": "clean",
             "descr": "clean system log, apt, etc",
