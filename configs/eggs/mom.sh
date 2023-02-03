@@ -8,9 +8,9 @@ LANG=C
 
 MSP=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo $MSP
-source ${MSP}/../../includes/easybashgui
-source ${MSP}/../../includes/easybashgui.lib
-source ${MSP}/../../includes/common.sh
+source ${MSP}/includes/easybashgui
+source ${MSP}/includes/easybashgui.lib
+source ${MSP}/includes/common.sh
 
 
 main() {

@@ -1,25 +1,39 @@
-#!/bin/env bash
+#!/usr/bin/env bash
+MSP=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+echo $MSP
+source ${MSP}/includes/easybashgui
+source ${MSP}/includes/easybashgui.lib
+source ${MSP}/includes/common.sh
 
-function getIdFlagsNames() {
-    #[jq]>  .commands[] | select(.id=="calamares").flags[] | .name
-    filter='.commands[] | select(.id=="'"$1"'").flags[] | | .name'
-    jq ${filter} ./.oclif.manifest.json
-    echo $1
+function query() {
+    # working 
+    # - echo ${root} | jq ".commands[] | select(.id=="'"calamares"'") | .flags[].name"
+    # - echo ${root} | jq "${filter}"
+    # - result=`echo ${root} | jq "${filter}"`
+    #
+    result=`echo ${root} | jq "${filter}"`
 }
 
-function getId() {
-    #[jq]>  .commands[] | select(.id=="calamares")
-    filter='.commands[] | select(.id=="'"$1"'")'
-    jq ${filter} ./.oclif.manifest.json
-    echo ${filter}
+function initMenu() {
+    # Disable unicode.
+    LC_ALL=C
+    LANG=C
+
+    # working 
+    # - root=$(cat .oclif.manifest.json | jq .)
+    # - filter=".commands[] | select(.id=="'"calamares"'") | .flags[].name"
+    # - filter=".commands[] | select(.id==\"${id}\") | .flags[].name"
+    # - query "${filter}"
+    root=$(cat .oclif.manifest.json | jq .)
+  
 }
 
-# Disable unicode.
-LC_ALL=C
-LANG=C
+initMenu
 
-id="calamares"
-getId ${id}
-#getIdFlagsNames ${id}
-
+id="dad"
+filter=".commands[] | select(.id==\"${id}\") | .flags[].name"
+query "${filter}"
+echo "filter: ${filter}"
+echo "result: ${result}"
+exit 0
 
