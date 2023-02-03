@@ -27,9 +27,12 @@ function main() {
                 msg+="syntax: eggs $answer"
                 msg+="\nDescription:\n"
                 msg+=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").description")
-                msg+="\nExamples:\n"
-                msg+=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").examples")
-                ok_message $msg;;
+                message $msg
+
+                examples=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").examples")
+                msg="$answer\n\n"
+                msg+=$examples
+                message $msg;;
         esac
     done
 
