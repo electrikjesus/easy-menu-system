@@ -11,55 +11,25 @@ function main() {
     #id="dad"
     #filter=".commands[] | select(.id==\"${id}\").id"
 
-    filter=".commands[].id"
-    result=$(query)
+    result=$(echo ${root} | jq ".commands[].id")
     result+=("quit")
-
 
     while true; do
         clear
         # NOTE [@]
         menu ${result[@]}
         answer=$(0< "${dir_tmp}/${file_tmp}" )
-
         case "$answer" in 
-            adapt)
-                ;;
-            analyze)
-                ;;
-            calamares)
-                ;;
-            config)
-                ;;
-            cuckoo)
-                ;;
-            dad)
-                ;;
-            install)
-                ;;
-            kill)
-                ;;
-            mom)
-                ;;
-            produce)
-                ;;
-            status)
-                ;;
-            syncfrom)
-                ;;
-            syncto)
-                ;;
-            update) 
-                ;;
-            export) # submenu
-                submenu ${answer};;
-            tools) # submenu
-                submenu ${answer};;
-            wardrobe) # submenu
-                submenu ${answer};;
-            *) # quit and others
-                theEnd
-                ;;
+            quit)
+                exit ;;
+            *)
+                msg="$answer\n\n"
+                msg+="syntax: eggs $answer"
+                msg+="\nDescription:\n"
+                msg+=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").description")
+                msg+="\nExamples:\n"
+                msg+=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").examples")
+                ok_message $msg;;
         esac
     done
 
@@ -94,12 +64,6 @@ function config() {
 ################################
 function press_a_key_to_continue {
    read -rp "Press enter to continue"
-}
-
-################################
-function theEnd {
-   echo "regular exit"
-   exit 0
 }
 
 main
