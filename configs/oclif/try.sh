@@ -23,16 +23,8 @@ function main() {
             quit)
                 exit ;;
             *)
-                msg="$answer\n\n"
-                msg+="syntax: eggs $answer"
-                msg+="\nDescription:\n"
-                msg+=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").description")
-                message $msg
-
-                examples=$(echo ${root} | jq ".commands[] | select(.id=="\"$answer\"").examples")
-                msg="$answer\n\n"
-                msg+=$examples
-                message $msg;;
+                eggs $answer --help
+                press_a_key_to_continue
         esac
     done
 
@@ -46,6 +38,7 @@ function query() {
     local retval=$(echo ${root} | jq "${filter}")
     echo ${retval}    
 }
+
 
 ################################
 function config() {
