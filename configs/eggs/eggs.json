@@ -1,6 +1,6 @@
 {
-  "project": "mom",
-  "version": 0.2,
+  "project": "eggs",
+  "version": "0.2",
   "updated": "2023-01-31T00:00:00.000Z",
   "debug": true,
   "options": {
@@ -21,17 +21,21 @@
             "type": "boolean"
           }
         ],
-        "dependencies": [{
-          "dep": "ls /usr/bin/adapt"
-        }]
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/adapt"
+          }
+        ]
       },
       {
         "name": "calamares",
         "descr": "calamares configuration or install and configure it",
         "command": "sudo eggs calamares",
-        "dependencies": [{
-          "dep": "ls /etc/calamares"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /etc/calamares"
+          }
+        ],
         "flags": [
           {
             "flag": "help",
@@ -69,9 +73,11 @@
         "name": "dad",
         "descr": "ask help from daddy - configuration helper",
         "command": "sudo eggs dad",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "clean",
@@ -89,17 +95,21 @@
         "name": "help",
         "descr": "display help",
         "command": "eggs -h",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }]
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ]
       },
       {
         "name": "kill",
         "descr": "kill the eggs/free the nest",
         "command": "sudo eggs kill",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "help",
@@ -117,9 +127,11 @@
         "name": "install",
         "descr": "krill TUI system installer - the egg becomes a chick",
         "command": "sudo eggs install",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "none",
@@ -191,9 +203,11 @@
         "name": "produce",
         "descr": "the system produces an egg: iso image of your system",
         "command": "sudo eggs produce",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "addons",
@@ -271,9 +285,11 @@
         "name": "syncfrom",
         "descr": "restore users and user data from a LUKS volumes",
         "command": "sudo eggs syncfrom",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "file",
@@ -306,9 +322,11 @@
         "name": "syncto",
         "descr": "save users and user data in a LUKS volume inside the iso",
         "command": "sudo eggs syncto",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "file",
@@ -336,9 +354,11 @@
         "name": "status",
         "descr": "eggs status",
         "command": "eggs status",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "verbose",
@@ -356,9 +376,11 @@
         "name": "update",
         "descr": "update the penguin's eggs tool",
         "command": "sudo eggs update",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
         "flags": [
           {
             "flag": "verbose",
@@ -375,11 +397,13 @@
       {
         "name": "export",
         "descr": "export packages/iso",
-        "command": "",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
-        "subMenuEntry": [
+        "command": "eggs export ",
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
+        "submenu": [
           {
             "name": "deb",
             "descr": "export deb packages to the destination host",
@@ -434,11 +458,13 @@
       {
         "name": "tools",
         "descr": "various tools",
-        "command": "",
-        "dependencies": [{
-          "dep": "ls /usr/bin/eggs"
-        }],
-        "subMenuEntry": [
+        "command": "sudo eggs tools",
+        "dependencies": [
+          {
+            "dep": "ls /usr/bin/eggs"
+          }
+        ],
+        "submenu": [
           {
             "name": "clean",
             "descr": "clean system log, apt, etc",

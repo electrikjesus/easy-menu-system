@@ -1,6 +1,6 @@
-project: mom
-version: 0.2
-updated: '2023-01-31T00:00:00.000Z'
+project: "eggs"
+version: "0.2"
+updated: "2023-01-31T00:00:00.000Z"
 debug: true
 options:
  menuEntry:
@@ -15,14 +15,14 @@ options:
      descr: "verbose"
      type: "boolean"
    dependencies: 
-    dep: "ls /usr/bin/adapt"
+   - dep: "ls /usr/bin/adapt"
 
 
  - name: "calamares"
    descr: "calamares configuration or install and configure it"
    command: "sudo eggs calamares"
    dependencies: 
-    dep: "ls /etc/calamares"
+   - dep: "ls /etc/calamares"
    flags:
    - flag: "help"
      descr: "help"
@@ -48,7 +48,7 @@ options:
    descr: "ask help from daddy - configuration helper"
    command: "sudo eggs dad"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
     - flag: "clean"
       descr: "clean and rebuild configuration"
@@ -62,14 +62,14 @@ options:
    descr: "display help"
    command: "eggs -h"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
 
 
  - name : "kill"
    descr: "kill the eggs/free the nest"
    command: "sudo eggs kill"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
    - flag: "help"
      descr: "help"
@@ -83,7 +83,7 @@ options:
    descr: "krill TUI system installer - the egg becomes a chick"
    command : "sudo eggs install"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
     - flag: "none"
       descr: " Swap none: 256M"
@@ -129,7 +129,7 @@ options:
    descr: "the system produces an egg: iso image of your system"
    command : "sudo eggs produce"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
    - flag: "addons"
      descr: "addons to be used: adapt, ichoice, pve, rsupport"
@@ -178,7 +178,7 @@ options:
    descr: "restore users and user data from a LUKS volumes"
    command: "sudo eggs syncfrom"
    dependencies:
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
    - flag: "file"
      descr: "file LUKS volume encrypted"
@@ -200,7 +200,7 @@ options:
    descr: "save users and user data in a LUKS volume inside the iso"
    command: "sudo eggs syncto"
    dependencies:
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
    - flag: "file"
      descr: "file LUKS volume encrypted"
@@ -219,7 +219,7 @@ options:
    descr: "eggs status"
    command: "eggs status"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
    - flag: "verbose"
      descr: "verbose"
@@ -233,7 +233,7 @@ options:
    descr: "update the penguin's eggs tool"
    command: "sudo eggs update"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    flags:
    - flag: "verbose"
      descr: "verbos"
@@ -247,7 +247,7 @@ options:
    descr: "export packages/iso"
    command: "eggs export "
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    submenu:
      - name: "deb"
        descr: "export deb packages to the destination host"
@@ -285,7 +285,7 @@ options:
    descr: "various tools"
    command: "sudo eggs tools"
    dependencies: 
-    dep: "ls /usr/bin/eggs"
+   - dep: "ls /usr/bin/eggs"
    submenu:
    - name: "clean"
      descr: "clean system log, apt, etc"
