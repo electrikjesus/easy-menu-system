@@ -35,7 +35,7 @@
         {
           "name": "Tools",
           "command": "",
-          "subMenuEntry": [
+          "menuEntry": [
             {
               "name": "Setup Network",
               "command": "bash ~/.local/bin/easy-net-connect.sh",
