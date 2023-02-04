@@ -403,7 +403,7 @@
             "dep": "ls /usr/bin/eggs"
           }
         ],
-        "submenu": [
+        "menuEntry": [
           {
             "name": "deb",
             "descr": "export deb packages to the destination host",
@@ -464,7 +464,7 @@
             "dep": "ls /usr/bin/eggs"
           }
         ],
-        "submenu": [
+        "menuEntry": [
           {
             "name": "clean",
             "descr": "clean system log, apt, etc",
