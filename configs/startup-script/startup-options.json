@@ -7,6 +7,7 @@
       "menuEntry": [
         {
           "name": "Start Plasma - Wayland",
+          "descr": "",
           "command": "startplasma-wayland",
           "dependencies": [
             {
@@ -16,6 +17,7 @@
         },
         {
           "name": "Start Waydroid - Mutter",
+          "descr": "",
           "command": "bash /usr/bin/mutter-session.sh",
           "dependencies": [
             {
@@ -25,6 +27,7 @@
         },
         {
           "name": "Start-Waydroid__Weston",
+          "descr": "",
           "command": "bash /usr/bin/waydroid-session.sh",
           "dependencies": [
             {
@@ -34,10 +37,12 @@
         },
         {
           "name": "Tools",
+          "descr": "",
           "command": "",
           "menuEntry": [
             {
               "name": "Setup Network",
+              "descr": "",
               "command": "bash ~/.local/bin/easy-net-connect.sh",
               "dependencies": [
                 {
@@ -47,6 +52,7 @@
             },
             {
               "name": "Configure Waydroid Options",
+              "descr": "",
               "command": "bash /usr/bin/configure_launch_type.sh",
               "dependencies": [
                 {
@@ -56,14 +62,17 @@
             },
             {
               "name": "Sleep",
+              "descr": "",
               "command": "systemctl suspend"
             },
             {
               "name": "reboot",
+              "descr": "",
               "command": "reboot"
             },
             {
               "name": "Shutdown",
+              "descr": "",
               "command": "shutdown"
             }
           ]
