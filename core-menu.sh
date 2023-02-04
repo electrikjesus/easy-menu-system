@@ -171,12 +171,12 @@ menuParse() {
             smconfigerror="true";
           fi
         fi
+        # If dependency passes, add entry
+        if [[ ! "$smconfigerror" ]]; then
+          MENUOPTIONS+=("$entry")
+        fi
+        smconfigerror="";
       done < <(jq -r "$BASE_ENTRY$MENUENTRY | select(.name == \"${entry}\") | .dependencies[]?.dep" $options_path)
-      
-      # If dependency passes, add entry
-      if [[ ! "$smconfigerror" ]]; then
-        MENUOPTIONS+=("$entry")
-      fi
 
     done < <(jq -r "$BASE_ENTRY$MENUENTRY$THIS_MENU" $options_path)
 
