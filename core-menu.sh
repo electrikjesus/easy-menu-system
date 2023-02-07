@@ -319,13 +319,13 @@ menuParse() {
 
           done
           # we parse the command
-          PARSED_MENU_OPTION_COMMAND="$COMMANDS $FLAG_ANSWERS"
+          PARSED_MENU_OPTION_COMMAND="$COMMAND $FLAG_ANSWERS"
           if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
             echo "Parsed flag command: $PARSED_MENU_OPTION_COMMAND"
           fi
         else 
           # we parse the command
-          PARSED_MENU_OPTION_COMMAND="$COMMANDS"
+          PARSED_MENU_OPTION_COMMAND=$COMMAND
           if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
             echo "Parsed command: $PARSED_MENU_OPTION_COMMAND"
           fi
