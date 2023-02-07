@@ -170,38 +170,57 @@ menuParse() {
             fi
             smconfigerror="true";
           fi
+        else
+          MENUITEMDEPS+=("$menuitem")
+
+          if [[ "$EZ_DEBUG_MODE" == "true" ]]; then 
+            echo "No dependency found: $entry"
+          fi
         fi
         # If dependency passes, add entry
-        if [[ ! "$smconfigerror" ]]; then
+        if [[ ! "$smconfigerror" ]] || [[ "$menuitem" == "" ]]; then
+
+          if [[ "$EZ_DEBUG_MODE" == "true" ]]; then 
+            echo "Adding Entry: $entry"
+          fi
           MENUOPTIONS+=("$entry")
         fi
         smconfigerror="";
       done < <(jq -r "$BASE_ENTRY$MENUENTRY | select(.name == \"${entry}\") | .dependencies[]?.dep" $options_path)
-
+      if [[ "$MENUITEMDEPS" == "" ]]; then 
+        if [[ "$EZ_DEBUG_MODE" == "true" ]]; then 
+          echo "No deps stated, adding Entry: $entry"
+        fi
+        MENUOPTIONS+=("$entry")
+      fi
     done < <(jq -r "$BASE_ENTRY$MENUENTRY$THIS_MENU" $options_path)
-
   }
   parseMenu
   while :
     do
-
     if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
+      echo "SUBMENUENTRY: $SUBMENUENTRY"
       echo "MENUENTRY: $MENUENTRY"
       echo "THIS_MENU: $THIS_MENU"
       echo "previous_menuentry: $previous_menuentry"
       echo "previous_menu: $previous_menu"
       echo "current_menuentry: $current_menuentry"
       echo "current_menu: $current_menu"
+      echo "initial MENUOPTIONS:"
+      echo "${MENUOPTIONS[@]}"
     fi
-    if [[ "$SUBMENUENTRY" == "" ]] && ([[ "$previous_menuentry" != "" ]] || \
-    [[ "$previous_menu" != "" ]]) && ([[ "$previous_menuentry" != "$current_menuentry" ]] || \
-    [[ "$previous_menu" != "$current_menu" ]]); then
+    if [[ "$SUBMENUENTRY" == "" ]] && [[ "$previous_menuentry" != "" ]]; then
       echo "NEW SUBMENU"
-      MENUENTRY="$previous_menuentry"
-      THIS_MENU="$previous_menu"
+      if [[ "$previous_menuentry" == "$current_menuentry" ]]; then
+        MENUENTRY=".menuEntry[]?"
+        THIS_MENU=".name"
+      else
+        MENUENTRY="$previous_menuentry"
+        THIS_MENU="$previous_menu"
+      fi
       if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
-        echo "MENUENTRY: $MENUENTRY"
-        echo "THIS_MENU: $THIS_MENU"
+        echo "reparsed MENUENTRY: $MENUENTRY"
+        echo "reparsed THIS_MENU: $THIS_MENU"
       fi
       parseMenu
     fi
@@ -279,10 +298,10 @@ menuParse() {
             fi
 
             if [[ "${answer}" == ".." ]]; then
-              export SUBMENUENTRY=""
-              export THIS_SUBMENU=""
-              export MENUENTRY=""
-              export THIS_MENU=""
+              SUBMENUENTRY=""
+              THIS_SUBMENU=""
+              MENUENTRY=""
+              THIS_MENU=""
               if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
                 echo "Going Back"
               fi
@@ -324,22 +343,22 @@ menuParse() {
           echo "SUBMENUOPTIONS: ${SUBMENUOPTIONS[@]}"
         fi
         if [[ "${SUBMENUOPTIONS[@]}" != "" ]]; then
-          export SUBMENUENTRY="$MENUENTRY | select(.name == \"${i}\") | .menuEntry[]?"
-          export THIS_SUBMENU=".name"
+          SUBMENUENTRY="$MENUENTRY | select(.name == \"${i}\") | .menuEntry[]?"
+          THIS_SUBMENU=".name"
           if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
             echo "SUBMENUENTRY: $SUBMENUENTRY"
             echo "THIS_SUBMENU: $THIS_SUBMENU"
           fi
-          # LAST_MENUENTRY="$MENUENTRY"
-          # LAST_MENUNAME="$THIS_MENU"
           previous_menuentry="$current_menuentry"
           previous_menu="$current_menu"
+          current_menuentry="$SUBMENUENTRY"
+          current_menu="$THIS_SUBMENU"
           return 0
         else
-          export SUBMENUENTRY=""
-          export THIS_SUBMENU=""
-          export MENUENTRY=""
-          export THIS_MENU=""
+          SUBMENUENTRY=""
+          THIS_SUBMENU=""
+          MENUENTRY=""
+          THIS_MENU=""
           if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
             echo "SUBMENUENTRY: $SUBMENUENTRY"
             echo "THIS_SUBMENU: $THIS_SUBMENU"
@@ -350,10 +369,15 @@ menuParse() {
       fi
 
       if [[ "${answer}" == ".." ]]; then
-        export SUBMENUENTRY=""
-        export THIS_SUBMENU=""
-        export MENUENTRY=""
-        export THIS_MENU=""
+
+        # refactor: let's parce the places to get the parent.
+
+        previous_menuentry="$current_menuentry"
+        previous_menu="$current_menu"
+        SUBMENUENTRY=""
+        THIS_SUBMENU=""
+        MENUENTRY="$previous_menuentry"
+        THIS_MENU="$previous_menu"
         if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
           echo "Clearing vars and moving back to parent menu"
         fi
@@ -424,18 +448,8 @@ if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
   echo
 fi
 
-# Create a variable to jump to:
-# menu=${1:-"menu"}
-# goto "$menu"
-
-# : menu
-
 menuParse
 
-# SUBMENUENTRY=""
-# THIS_SUBMENU=""
-
-# : submenu
 if [[ "$SUBMENUENTRY" != "" ]]; then
   if [[ "$EZ_DEBUG_MODE" == "true" ]]; then
     echo
