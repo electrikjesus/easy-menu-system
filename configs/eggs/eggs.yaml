@@ -4,14 +4,14 @@ updated: "2023-02-19T00:00:00.000Z"
 debug: true
 options:
   menuEntry:
-  #- name: adapt
-  #  descr: adapt monitor resolution for VM only
-  #  command: eggs adapt
+  - name: adapt
+    descr: adapt monitor resolution for VM only
+    command: eggs adapt
+    dependencies:
+      - dep: ls /usr/bin/adapt
   #- name: analyze
   #  descr: analyze for syncto
   #  command: eggs analyze
-  #  dependencies:
-  #    - dep: ls /usr/lib/penguins-eggs/
   - name: calamares
     descr: configure calamares or install or configure it
     command: eggs calamares --help
@@ -27,9 +27,13 @@ options:
   - name: install
     descr: 'krill: the CLI system installer - the egg became a penguin!'
     command: sudo eggs install
+    dependencies:
+    - dep: ls /run/live/rootfs/filesystem.squashfs/
   - name: kill
     descr: kill the eggs/free the nest
     command: sudo eggs kill
+    dependencies:
+    - dep: ls /home/eggs
   - name: produce
     descr: produce a live image from your system whithout your data
     command: eggs produce --help
@@ -64,15 +68,20 @@ options:
       desc: sourceforge page
       command: xdg-open https://sourceforge.net/projects/penguins-eggs/
   - name: EXPORT
-    descr: ""
-    command: ""
     menuEntry: 
     - name: deb
       descr: 
       command: eggs export deb
+      dependencies:
+      - dep: ls ${HOME}/penguins-eggs/perrisbrewery/working
     - name: iso
       descr: export iso in the destination host
       command: eggs export iso
+      dependencies:
+      - dep: ls /home/eggs/*.iso
+    - name: quit
+      descr: quit
+      command: exit 0
   - name: TOOLS
     descr: ""
     command: ""
@@ -94,17 +103,24 @@ options:
     command: ""
     menuEntry: 
     - name: get
-      descr: get warorobe
+      descr: get wardrobe
       command: eggs wardrobe get
     - name: list
       descr: list costumes and accessoires in wardrobe
       command: eggs wardrobe list
+      dependencies:
+        - dep: ls ${HOME}/.wardrobe
     - name: show
       descr: show costumes/accessories in wardrobe
       command: eggs wardrobe show
+      dependencies:
+        - dep: ls ${HOME}/.wardrobe
     - name: wear
       descr: wear costume/accessories from wardrobe
       command: eggs wardrobe wear --help
+      dependencies:
+        - dep: ls ${HOME}/.wardrobe
+    - name: quit
+      command: exit 0
   - name: quit
-    desc: quit
     command: exit 0
