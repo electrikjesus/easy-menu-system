@@ -8,12 +8,12 @@
       {
         "name": "adapt",
         "descr": "adapt monitor resolution for VM only",
-        "command": "eggs adapt --help"
+        "command": "eggs adapt"
       },
       {
         "name": "analyze",
         "descr": "analyze for syncto",
-        "command": "eggs analyze --help",
+        "command": "eggs analyze",
         "dependencies": [
           {
             "dep": "ls /usr/lib/penguins-eggs/"
@@ -28,27 +28,27 @@
       {
         "name": "config",
         "descr": "Configure and install prerequisites deb packages to run it",
-        "command": "eggs config --help"
+        "command": "sudo eggs config"
       },
       {
         "name": "cuckoo",
         "descr": "PXE start with proxy-dhcp",
-        "command": "eggs cuckoo --help"
+        "command": "sudo eggs cuckoo"
       },
       {
         "name": "dad",
         "descr": "ask help from daddy - TUI configuration helper",
-        "command": "eggs dad --help"
+        "command": "sudo eggs dad --default"
       },
       {
         "name": "install",
         "descr": "krill: the CLI system installer - the egg became a penguin!",
-        "command": "eggs install --help"
+        "command": "sudo eggs install"
       },
       {
         "name": "kill",
         "descr": "kill the eggs/free the nest",
-        "command": "eggs kill --help"
+        "command": "sudo eggs kill"
       },
       {
         "name": "produce",
@@ -58,92 +58,115 @@
       {
         "name": "status",
         "descr": "informations about eggs status",
-        "command": "eggs status --help"
+        "command": "eggs status"
       },
       {
-        "name": "syncfrom",
-        "descr": "restore users and user data from a LUKS volumes"
-      },
-      {
-        "name": "syncfto",
-        "descr": "saves users and user data in a LUKS volume inside the iso",
-        "command": "eggs syncto --help"
-      },
-      {
-        "name": "update",
-        "descr": "update the penguin's eggs tool",
-        "command": "eggs update --help"
-      },
-      {
-        "name": "export",
+        "name": "DOCUMENTATION",
         "descr": "",
         "command": "",
         "menuEntry": [
           {
-            "name": "export:iso",
-            "descr": "export iso in the destination host",
-            "command": "eggs export --help"
+            "name": "book",
+            "desc": "book",
+            "command": "xdg-open https://penguins--eggs-net.translate.goog/book/italiano9.3?_x_tr_sl=auto\u0026_x_tr_tl=en\u0026_x_tr_hl=en"
           },
           {
-            "name": "tools:clean",
-            "descr": "clean system log, apt, etc",
-            "command": "eggs tools clean --help"
+            "name": "man",
+            "desc": "man pages",
+            "command": "man eggs"
+          },
+          {
+            "name": "man pages html",
+            "desc": "man pages html",
+            "command": "xdg-open file:///usr/lib/penguins-eggs/manpages/doc/man/eggs.html"
+          },
+          {
+            "name": "repository",
+            "desc": "repository",
+            "command": "xdg-open https://github.com/pieroproietti/penguins-eggs"
+          },
+          {
+            "name": "sourceforge page",
+            "desc": "sourceforge page",
+            "command": "xdg-open https://sourceforge.net/projects/penguins-eggs/"
           }
         ]
       },
       {
-        "name": "Tools",
+        "name": "EXPORT",
         "descr": "",
         "command": "",
         "menuEntry": [
           {
-            "name": "tools:ppa",
+            "name": "deb",
+            "descr": null,
+            "command": "eggs export deb"
+          },
+          {
+            "name": "iso",
+            "descr": "export iso in the destination host",
+            "command": "eggs export iso"
+          }
+        ]
+      },
+      {
+        "name": "TOOLS",
+        "descr": "",
+        "command": "",
+        "menuEntry": [
+          {
+            "name": "ppa",
             "descr": "add/remove PPA repositories (Debian family)",
             "command": "eggs tools ppa --help"
           },
           {
-            "name": "tools:skel",
+            "name": "skel",
             "descr": "update skel from home configuration",
             "command": "eggs tools skel --help"
           },
           {
-            "name": "tools:stat",
+            "name": "stat",
             "descr": "get statistics from sourceforge",
-            "command": "eggs tools stat --help"
+            "command": "eggs tools stat"
           },
           {
-            "name": "tools:yolk",
+            "name": "yolk",
             "descr": "configure eggs to install without internet",
-            "command": "eggs tools yolk --help"
+            "command": "sudo eggs tools yolk"
           }
         ]
       },
       {
-        "name": "Wardrobe",
+        "name": "WARDROBE",
         "descr": "",
         "command": "",
         "menuEntry": [
           {
-            "name": "wardrobe:get",
+            "name": "get",
             "descr": "get warorobe",
-            "command": "eggs wardrobe get --help"
+            "command": "eggs wardrobe get"
           },
           {
-            "name": "wardrobe:list",
+            "name": "list",
             "descr": "list costumes and accessoires in wardrobe",
-            "command": "eggs wardrobe list --help"
+            "command": "eggs wardrobe list"
           },
           {
-            "name": "wardrobe:show",
+            "name": "show",
             "descr": "show costumes/accessories in wardrobe",
-            "command": "eggs wardrobe show --help"
+            "command": "eggs wardrobe show"
           },
           {
-            "name": "wardrobe:wear",
+            "name": "wear",
             "descr": "wear costume/accessories from wardrobe",
             "command": "eggs wardrobe wear --help"
           }
         ]
+      },
+      {
+        "name": "quit",
+        "desc": "quit",
+        "command": "exit 0"
       }
     ]
   }
