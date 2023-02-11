@@ -122,5 +122,5 @@ options:
         - dep: ls ${HOME}/.wardrobe
     - name: quit
       command: exit 0
-  - name: quit
+  - name: QUIT
     command: exit 0

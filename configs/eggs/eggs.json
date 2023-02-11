@@ -196,7 +196,7 @@
         ]
       },
       {
-        "name": "quit",
+        "name": "QUIT",
         "command": "exit 0"
       }
     ]
