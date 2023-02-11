@@ -1,3 +1,0 @@
-yq $1.json -o yaml >$1.yaml
-
-

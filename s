@@ -1,1 +1,0 @@
-./configs/eggs/mom.sh

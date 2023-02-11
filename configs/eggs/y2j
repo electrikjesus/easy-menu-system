@@ -1,3 +1,0 @@
-yq eval $1.yaml -j  >$1.json
-
-
